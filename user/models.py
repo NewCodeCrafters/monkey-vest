@@ -6,13 +6,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import MinLengthValidator
 
 from .managers import UserManager
-import random
-import string
-
-STATUS = (
-    ("Paid","Paid")
-    ("unpaid","unpaid")
-)
 
 
 
@@ -36,32 +29,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return f"{self.email}"
     
-
-class Profile(models.Model):
-    user = models.OneToOneField()
-    account = models.OneToOneField()
-    pic = models.ImageField(upload_to="media")
-    dob = models.CharField(max_length=20)
-    balance = models.IntegerField(default=0)
-
-
-class Loan(models.Model):
-    amount = models.CharField(max_length=30)
-    status = models.CharField(max_length=50, choices=STATUS)
-
-class Deposits(models.Model):
-    time_paid = models.DateTimeField(_("Date of deposit"), auto_now_add=True)
-    amount = models.CharField(max_length=30)
-
-class Withdrawal(models.Model):
-    time_taken = models.DateTimeField(_("you withdrew"), auto_now_add=True)
-    amount = models.CharField(max_length=30)
-
-class Investment(models.Model):
-    time_invested = models.DateTimeField(_("you inveted"), auto_now_add=True)
-    invested = models.CharField(max_length=30)
-
-
-
-
-
