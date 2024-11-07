@@ -32,6 +32,7 @@ DJANGO_APPS = [
 CUSTOM_APPS = [
     'user',
     'profiles',
+    'accounts',
 ]
 
 THIRDPARTY_APPS = [
