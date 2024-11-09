@@ -19,13 +19,13 @@ class Accounts(models.Model):
     account_type = models.CharField(max_length=30, choices=ACCOUNT_TYPE_CHOICES)
     account_title = models.CharField(max_length=50)
     currency = models.CharField(max_length=5, choices=CURRENCY_CHOICES)
-    balance = models.DecimalField(max_digits=14, decimal_places=2)
-    interest_rate = models.DecimalField(decimal_places=2, max_digits=3)
-    account_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    balance = models.DecimalField(max_digits=14, decimal_places=2, default=0.00)
+    interest_rate = models.DecimalField(decimal_places=2, max_digits=3, default=0.00)
     created = models.DateTimeField(auto_now_add=True)
+    account_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     last_transaction_date = models.DateTimeField(blank=True, null=True)
-    withdrawal_limit = models.DecimalField(decimal_places=2, max_digits=10)
-    deposit_limit = models.DecimalField(decimal_places=2, max_digits=10)
+    withdrawal_limit = models.DecimalField(decimal_places=2, max_digits=10, default=1000000)
+    deposit_limit = models.DecimalField(decimal_places=2, max_digits=10, default=1000000)
     maturity_date = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self) -> str:
