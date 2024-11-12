@@ -10,12 +10,10 @@ from .choices import ACCOUNT_TYPE_CHOICES, CURRENCY_CHOICES, STATUS_CHOICES
 User = get_user_model()
 
 
-
-
 class Accounts(models.Model):
     account_id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account_number = models.PositiveBigIntegerField(null=True, blank=True)
+    account_number = models.PositiveBigIntegerField(null=True, blank=True, unique=True)
     account_type = models.CharField(max_length=30, choices=ACCOUNT_TYPE_CHOICES)
     account_title = models.CharField(max_length=50)
     currency = models.CharField(max_length=5, choices=CURRENCY_CHOICES)
