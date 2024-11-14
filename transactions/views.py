@@ -1,7 +1,7 @@
 from django.db import transaction
-from .serializers import CreateDepositSerializer, DepositSerializer,CreateWithdrawalSerializer,WithdrawalSerializer
+from .serializers import CreateDepositSerializer, CreateTransferSerializer, DepositSerializer,CreateWithdrawalSerializer, TransferSerializer,WithdrawalSerializer
 from rest_framework import status, permissions, views, response
-from .models import Deposit,Withdrawal
+from .models import Deposit, Transfer,Withdrawal
 from decimal import Decimal
 from drf_yasg.utils import swagger_auto_schema
 from accounts.models import Accounts
@@ -141,3 +141,32 @@ class CreateWithdrawalView(views.APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )    
 
+class UserTransferViews(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = TransferSerializer
+
+    def get(self, request, source_account_number:int):
+        user = request.user
+        transfers = Transfer.objects.filter(source_account_number=str(source_account_number), user=user) 
+        serializer = TransferSerializer(transfers, many=True)
+        return response.Response(serializer.data, status=status.HTTP_200_OK)
+
+class CreateTransferView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = CreateTransferSerializer
+
+    def post(self, request, source_account_number:int):
+        user = request.user
+        data = request.data
+        amount = data.get('amount')
+        destination_account_number = data.get('destination_account_number')
+        
+        try:
+            source_account = Accounts.objects.get(account_number=source_account_number)
+            destination_account = Accounts.objects.get(account_number= destination_account_number) 
+               
+        except Accounts.DoesNotExist:
+            return response.Response(
+                {'error': f"{source_account_number} is not a valid account number."}
+            )
+            
