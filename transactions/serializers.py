@@ -15,11 +15,16 @@ class DepositSerializer(serializers.ModelSerializer):
         model = Deposit
         fields = "__all__"
 
+
 class WithdrawalSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Transfer
+        model = Withdrawal
         fields = '__all__'
 
+
 class CreateWithdrawalSerializer(serializers.ModelSerializer):
+
     class Meta:
+        model = Withdrawal
         fields = ('account_number','amount')                 
