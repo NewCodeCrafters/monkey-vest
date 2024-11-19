@@ -19,6 +19,17 @@ class GetMainAccountView(views.APIView):
         return response.Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class GetAccountView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GetMainAccountsSerializer
+    
+    def get(self, request, account_number):
+        account_number = str(account_number)
+        account = Accounts.objects.get(account_number=account_number)
+        serializer = GetMainAccountsSerializer(account)
+        return response.Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class GetAllUsersAccountView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GetMainAccountsSerializer
