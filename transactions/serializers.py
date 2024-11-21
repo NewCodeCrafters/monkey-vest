@@ -27,16 +27,19 @@ class CreateWithdrawalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Withdrawal
-        fields = ('account_number','amount') 
+        fields = ('account_number','amount')                 
+
 
 class TransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
-        fields = '__all__'
+        fields = "__all__"
+        # fields = ['amount', 'destination_account_number']
 
 
 class CreateTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
-        fields = ('amount', 'destination_account_number', 'source_account_number', 'status')
-                            
+        # fields = "__all__"
+        fields = ['amount', 'destination_account_number']
+

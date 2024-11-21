@@ -7,7 +7,5 @@ urlpatterns = [
     path('deposit/', views.CreateDepositView.as_view()),
     path('withdrawal/', views.CreateWithdrawalView.as_view()),
     path('withdrawal-history/', views.UserWithdrawalView.as_view()),
-    path('transfer/', views.UserTransferView.as_view()),
-    path('transfer-history/', views.CreateTransferView.as_view())
-
+    path('my-transfers/<int:source_account_number>/', views.UserTransferViews.as_view()),
 ]

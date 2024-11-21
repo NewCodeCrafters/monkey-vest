@@ -43,4 +43,3 @@ class Withdrawal(Transaction):
 class Transfer(Transaction):
     source_account_number = models.CharField(max_length=11)
     destination_account_number = models.CharField(max_length=11)
-
