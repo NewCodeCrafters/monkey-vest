@@ -174,7 +174,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": os.getenv('SECRET_KEY'),
+    "SIGNING_KEY": os.getenv('SECRET_KEY', '8l0z5s&36)43w@#!72d2o^79u!k-$*_%1kt38_%_$d=5ajkpe4'),
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
