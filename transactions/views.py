@@ -196,6 +196,7 @@ class CreateTransferView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]  # Only authenticated users can access
     serializer_class = CreateTransferSerializer  # Serializer to validate and process input data
 
+    @swagger_auto_schema(request_body=CreateTransferSerializer)
     def post(self, request, source_account_number: int):
         user = request.user  # Get the current logged-in user
         data = request.data  # Retrieve input data from the request
