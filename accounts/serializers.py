@@ -16,3 +16,9 @@ class GetMainAccountsSerializer(serializers.ModelSerializer):
         fields = "__all__"
         
         
+        
+class UserUpdateAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Accounts
+        fields = ["account_title", "maturity_date"]
+
