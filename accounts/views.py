@@ -6,7 +6,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from accounts.models import Accounts
 
-from .serializers import AccountsSerializer, GetMainAccountsSerializer
+from .serializers import AccountsSerializer, GetMainAccountsSerializer, UserUpdateAccountSerializer
 
 class GetMainAccountView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -64,3 +64,20 @@ class CreateNewAccountView(views.APIView):
                     serializer.data, status=status.HTTP_201_CREATED
                 )
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserAccountUpdateView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserUpdateAccountSerializer
+
+    @swagger_auto_schema(request_body=UserUpdateAccountSerializer)
+    # @swagger_auto_schema(request_body=AdminLyricsSerializer)
+    def put(self, request, account_number, *args, **kwargs):
+        account_number = str(account_number)
+        account = Accounts.objects.get(account_number=account_number)
+        serializer = UserUpdateAccountSerializer(account, data=request.data, partial=False)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response.Response(serializer.data)
+
+
